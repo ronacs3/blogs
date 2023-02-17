@@ -10,7 +10,7 @@ export default function Homepages ({views}) {
   return (
     <div>
       <Layout>
-        <div className='font-bold text-xl '>Thể Loại</div>
+        <div className='font-bold text-xl font-mono '>Thể Loại</div>
         {views.length === 0 && <h3>No News</h3>}
         {views.map((item) => (
           <Categories key={item.id} views={item} />
