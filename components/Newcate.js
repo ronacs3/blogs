@@ -33,7 +33,7 @@ export default function NewsItem({ news }) {
         />
         </div> */}
       <div className={styles.info}>
-        <h3>
+        <h3 className='font-bold text-xl font-mono'>
           {news.attributes.title}
         </h3>
       

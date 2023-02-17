@@ -10,7 +10,7 @@ export default function Homepages ({news}) {
   return (
     <div>
       <Layout>
-        <h1>{news.attributes.title}</h1>
+        <h1 className='font-bold text-xl font-mono'>{news.attributes.title}</h1>
         {news.attributes.posts.data.length === 0 && <h3>No News</h3>}
         {news.attributes.posts.data.map((item) => (
           <Newcate key={item.id} news={item} />

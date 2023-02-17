@@ -24,7 +24,7 @@ export default function Categories({ views }) {
       <div className={styles.info}>
         <span>
         </span>
-        <h3>{views.attributes.title}</h3>
+        <h3 className='font-bold font-mono'>{views.attributes.title}</h3>
       </div>
       <div className={styles.link}>
         <Link href={`the-loai/${views.attributes.slug}`}>
