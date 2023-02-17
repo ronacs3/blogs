@@ -1,0 +1,24 @@
+<script>
+    var postsAPI =  'https://gorest.co.in/public/v2/posts'
+    fetch(postsAPI)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(posts){
+        var htmls = posts.map(function(post){
+            return `<li>
+                        <h2>ID: ${post.id}</h2>
+                        <p>User: ${post.user_id}</p> 
+                        <p>Title: ${post.title}</p>
+                    </li>`;
+        });
+         var html = htmls.join('');
+        document.getElementById('post-block').innerHTML = html;
+    })
+    .catch(function(err){
+        alert('co loi!')
+    })
+</script>
+<html>
+    <div id="post-block"></div>
+</html>
