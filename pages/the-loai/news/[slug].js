@@ -19,7 +19,7 @@ let renderContent = md.render(news.data.attributes.content);
   return(
     <Layout>
       <div className={styles.news}>
-        <h1 className='text-2xl'>{news.data.attributes.title}</h1>
+        <h1 className='text-xl'>{news.data.attributes.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: renderContent }} />
         {/* <Image
         loader={myLoader}
