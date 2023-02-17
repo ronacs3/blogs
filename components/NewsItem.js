@@ -38,7 +38,7 @@ export default function NewsItem({ news }) {
       
         <h4>{news.attributes.description}</h4>
         <h6>Views:{news.attributes.views}</h6>
-        <h6>date: {news.attributes.createdAt}</h6>
+        <h6>Date: {new Date(news.attributes.createdAt).toLocaleString()}</h6>
       </div>
       <div className={styles.link}>
         <Link href={`the-loai/news/${news.attributes.slug}`}>
