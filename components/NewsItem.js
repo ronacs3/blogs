@@ -10,7 +10,7 @@ const myLoader = ({ src }) => {
 }
 
 export default function NewsItem({ news }) {
-  console.log(news)
+  // console.log(news)
   return (
     <div className={styles.news}>
       {news.attributes.cover.data != null && (
@@ -32,7 +32,7 @@ export default function NewsItem({ news }) {
         />
         </div> */}
       <div className={styles.info}>
-        <h3 className='font-bold text-xl font-mono'>
+        <h3 className='font-bold text-lg font-mono'>
           {news.attributes.title}
         </h3>
       

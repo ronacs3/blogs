@@ -15,7 +15,7 @@ export default function Layout({ title, keyowrds, description, children, }) {
         <meta name="keywords" content={keyowrds} />
       </Head>
       <Header />
-      {router.pathname === "/" && <Hero />}
+      {/* {router.pathname === "/" && <Hero />} */}
       <div className={styles.container}>{children}</div>
       <Footer />
     </div>

@@ -6,12 +6,16 @@ import styles from "@/styles/News.module.css";
 import { Router } from "react-router-dom";
 import Image from 'next/image'
 import MarkdownIt from 'markdown-it';
-
+import Icon from '@mui/material/Icon';
+import * as React from 'react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 
 const News = ({news}) => {
   let md = new MarkdownIt();
-let renderContent = md.render(news.data.attributes.content);
+let renderContent = md.render(news.attributes.content);
   // const router = useRouter()
   // const {id} = router.query
   // console.log(id)
@@ -19,7 +23,9 @@ let renderContent = md.render(news.data.attributes.content);
   return(
     <Layout>
       <div className={styles.news}>
-        <h1 className='text-xl'>{news.data.attributes.title}</h1>
+        <h1 className="text-xl">{news.attributes.title}</h1>
+        <h1><VisibilityIcon/> {news.attributes.views}</h1>
+        <h1><AccessTimeIcon/> {new Date(news.attributes.createdAt).toLocaleString()}</h1>
         <div dangerouslySetInnerHTML={{ __html: renderContent }} />
         {/* <Image
         loader={myLoader}
@@ -29,7 +35,7 @@ let renderContent = md.render(news.data.attributes.content);
         alt={news.data.attributes.title}
         /> */}
         {/* <h4>{news.data.attributes.content}</h4> */}
-        <h4>Views: {news.data.attributes.views}</h4>
+      
         {/* <span>{news.attributes.categories}</span> */}
         <Link href="/the-loai">
           <a className={styles.back}>Go Back</a>
@@ -45,7 +51,7 @@ export async function getServerSideProps(context) {
   const data = await res.json()
   return {
       props: {
-          news: data
+          news: data.data
       },
   }
 }

@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 export default function NewsItem({ news }) {
   // console.log(news)
-  console.log(news)
+
   return (
     <div className={styles.news}>
       {/* {news.attributes.cover.data != null && (

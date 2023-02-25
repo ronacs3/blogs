@@ -9,7 +9,7 @@ import { fetcher } from "lib/api";
 export default function Homepages ({news}) {
   const [pageIndex, setPageIndex] = useState(1);
   const { data } = useSWR(
-    `https://v2.wuys.me/api/posts?pagination[page]=${pageIndex}&pagination[pageSize]=3&populate=*&sort=createdAt%3Adesc`,
+    `https://v2.wuys.me/api/posts?pagination[page]=${pageIndex}&pagination[pageSize]=3&populate=*&sort=views%3Adesc`,
     fetcher,
     {
       fallbackData: news,
@@ -23,7 +23,7 @@ export default function Homepages ({news}) {
   return (
     <div>
       <Layout>
-        <h1 className='font-bold text-xl font-mono'>Latest News</h1>
+        <h1 className='font-bold text-xl font-mono'>Hot News</h1>
         {/* {ninja.length === 0 && <h3>No News</h3>} */}
         {data.data.map((item) => (
           <NewsItem key={item.id} news={item} />
@@ -73,7 +73,7 @@ export default function Homepages ({news}) {
 // }
 export async function getStaticProps() {
   const newsResponse = await fetcher(
-    `https://v2.wuys.me/api/posts?pagination[page]=1&pagination[pageSize]=3&populate=*&sort=createdAt%3Adesc`
+    `https://v2.wuys.me/api/posts?pagination[page]=1&pagination[pageSize]=3&populate=*&sort=views%3Adesc`
   );
   return {
     props: {
