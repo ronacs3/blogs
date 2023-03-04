@@ -1,16 +1,11 @@
 import Layout from "../../../components/Layout";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import axios from 'axios';
 import styles from "@/styles/News.module.css";
-import { Router } from "react-router-dom";
-import Image from 'next/image'
 import MarkdownIt from 'markdown-it';
-import Icon from '@mui/material/Icon';
 import * as React from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
 
 
 const News = ({news}) => {
@@ -23,6 +18,7 @@ let renderContent = md.render(news.attributes.content);
   console.log(news)
   return(
     <Layout>
+      <div className={styles.container}>
       <div className={styles.news}>
         <h1 className="text-xl">{news.attributes.title}</h1>
         <h1><VisibilityIcon/> {news.attributes.views}</h1>
@@ -42,6 +38,7 @@ let renderContent = md.render(news.attributes.content);
           <a className={styles.back}>Go Back</a>
         </Link>
       </div>
+      </div>
     </Layout>
   )
 }
@@ -54,7 +51,6 @@ export async function getServerSideProps(context) {
       props: {
           news: data.data
       },
-      revalidate: 60,
   }
 }
 // export async function getSideProps(context) {

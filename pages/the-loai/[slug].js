@@ -4,12 +4,12 @@ import Link from "next/link";
 import Layout from "@/components/Layout";
 import { API_URL } from "@/config/index";
 import Newcate from "@/components/Newcate";
-import styles from "@/styles/News.module.css";
+import styles from "@/styles/Layout.module.css";
 export default function Homepages ({news}) {
 
   return (
-    <div>
       <Layout>
+        <div className={styles.container}>
         <h1 className='font-bold text-xl font-mono'>{news.attributes.title}</h1>
         {news.attributes.posts.data.length === 0 && <h3>No News</h3>}
         {news.attributes.posts.data.map((item) => (
@@ -18,8 +18,9 @@ export default function Homepages ({news}) {
         <Link href="/the-loai">
           <a className={styles.back}>Go Back</a>
         </Link>
+        </div>
       </Layout>
-    </div>
+
   );
 }
 
