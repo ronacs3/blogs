@@ -14,6 +14,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 
 const News = ({news}) => {
+  console.log(news)
   let md = new MarkdownIt();
 let renderContent = md.render(news.attributes.content);
   // const router = useRouter()
@@ -47,7 +48,7 @@ let renderContent = md.render(news.attributes.content);
 
 export async function getServerSideProps(context) {
   const {slug} = context.query
-  const res = await fetch(`https://v2.wuys.me/api/posts/${slug}`)
+  const res = await fetch(`https://v2.wuys.me/api/posts/${slug}?populate=*`)
   const data = await res.json()
   return {
       props: {

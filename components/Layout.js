@@ -16,7 +16,7 @@ export default function Layout({ title, keyowrds, description, children, }) {
       </Head>
       <Header />
       {/* {router.pathname === "/" && <Hero />} */}
-      <div className={styles.container}>{children}</div>
+      <div>{children}</div>
       <Footer />
     </div>
   );

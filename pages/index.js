@@ -1,11 +1,25 @@
 
 import Layout from "@/components/Layout";
-
 import NewsItem from "@/components/NewsItem";
 import { useState } from "react";
-import { paginate } from "@/components/paginate";
 import useSWR from 'swr';
 import { fetcher } from "lib/api";
+import { Grid,Card } from "@mui/material";
+import Box from '@mui/material/Box';
+import styles from "@/styles/Layout.module.css";
+import axios from "axios";
+import Newcate from "@/components/Newcate"
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import CategoryIcon from '@mui/icons-material/Category';
+import IconButton from '@mui/material/IconButton';
+import RecommendIcon from '@mui/icons-material/Recommend';
+import CloudIcon from '@mui/icons-material/Cloud';
 export default function Homepages ({news}) {
   const [pageIndex, setPageIndex] = useState(1);
   const { data } = useSWR(
@@ -15,17 +29,15 @@ export default function Homepages ({news}) {
       fallbackData: news,
     }
   );
-    // const newsList = [ninja]
-    // console.log(newsList)
-    
-    // const paginatedPosts = paginate(ninja, currentPage, pageSize);
-// console.log(data)
   return (
     <div>
       <Layout>
-        <h1 className='font-bold text-xl font-mono'>Latest News</h1>
-        {/* {ninja.length === 0 && <h3>No News</h3>} */}
-        {data.data.map((item) => (
+      <Box sx={{ flexGrow: 4 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={6}md={8}>
+            <div className={styles.container}>
+              <h1 className='font-bold text-xl font-mono'>Latest News</h1>
+              {data.data.map((item) => (
           <NewsItem key={item.id} news={item} />
         ))}
       
@@ -55,22 +67,79 @@ export default function Homepages ({news}) {
         <span>{`${pageIndex} of ${
           data && data.meta.pagination.pageCount
         }`}</span>
-      </div>
+         </div>
+            </div>
+          </Grid>
+          <Grid item xs={6} md={4}>
+            <div className={styles.container2}>
+         
+              <Card sx={{ maxWidth: 400 }} className={styles.news} >
+              <CardContent>
+              <MenuItem>
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  href="/the-loai"
+                >
+                  <CategoryIcon />
+                </IconButton>
+              </MenuItem>
+                <Typography variant="h5" component="div">
+                  Categories
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="medium" href="/the-loai">Show More</Button>
+              </CardActions>
+              </Card>
+              <Card sx={{ maxWidth: 400 }} className={styles.news} >
+              <CardContent>
+              <MenuItem>
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  href="/hotnews"
+                >
+                  <RecommendIcon />
+                </IconButton>
+              </MenuItem>
+                <Typography variant="h5" component="div">
+                  Recommend
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" href="/hotnews">Show More</Button>
+              </CardActions>
+              </Card>
+              <Card sx={{ maxWidth: 400 }} className={styles.news} >
+              <CardContent>
+              <MenuItem>
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  href="/"
+                >
+                  <CloudIcon />
+                </IconButton>
+              </MenuItem>
+               
+                <Typography variant="h5" component="div">
+                 Weather
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" href="/">Show More</Button>
+              </CardActions>
+              </Card>
+            </div>
+          </Grid>
+        </Grid>
+      </Box>
       </Layout>
     </div>
   );
 }
 
-
-
-// export async function getServerSideProps() {
-//   const res = await fetch(`${API_URL}/api/news`);
-//   const news = await res.json();
-
-//   return {
-//     props: { news },
-//   };
-// }
 export async function getStaticProps() {
   const newsResponse = await fetcher(
     `https://v2.wuys.me/api/posts?pagination[page]=1&pagination[pageSize]=3&populate=*&sort=createdAt%3Adesc`
@@ -81,14 +150,3 @@ export async function getStaticProps() {
     },
   };
 }
-
-// export async function getStaticProps() {
-
-//   const res = await fetch(`https://v2.wuys.me/api/posts?pagination[page]=2&pagination[pageSize]=2&populate=*`);
-//   const data = await res.json();
-
-//   return {
-//     props: {ninja:data.data },
-//     revalidate: 1,
-//   };
-// }

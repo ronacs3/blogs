@@ -2,22 +2,23 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "@/components/Layout";
-import { API_URL } from "@/config/index";
+import styles from "@/styles/Layout.module.css";
 import NewsItem from "@/components/NewsItem";
 import Categories from "@/components/Categories";
 
 export default function Homepages ({views}) {
   return (
-    <div>
+
       <Layout>
+      <div className={styles.container}>
         <div className='font-bold text-xl font-mono'>Thể Loại</div>
         {views.length === 0 && <h3>No News</h3>}
         {views.map((item) => (
           <Categories key={item.id} views={item} />
         ))}
+    </div>
        
       </Layout>
-    </div>
   );
 }
 

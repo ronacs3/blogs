@@ -1,10 +1,10 @@
 
 import Layout from "@/components/Layout";
-
 import NewsItem from "@/components/NewsItem";
 import { useState } from "react";
 import { paginate } from "@/components/paginate";
 import useSWR from 'swr';
+import styles from "@/styles/Layout.module.css";
 import { fetcher } from "lib/api";
 export default function Homepages ({news}) {
   const [pageIndex, setPageIndex] = useState(1);
@@ -21,8 +21,8 @@ export default function Homepages ({news}) {
     // const paginatedPosts = paginate(ninja, currentPage, pageSize);
 // console.log(data)
   return (
-    <div>
       <Layout>
+      <div className={styles.container}>
         <h1 className='font-bold text-xl font-mono'>Hot News</h1>
         {/* {ninja.length === 0 && <h3>No News</h3>} */}
         {data.data.map((item) => (
@@ -56,8 +56,8 @@ export default function Homepages ({news}) {
           data && data.meta.pagination.pageCount
         }`}</span>
       </div>
-      </Layout>
-    </div>
+      </div>
+      </Layout>    
   );
 }
 

@@ -10,11 +10,10 @@ const myLoader = ({ src }) => {
 }
 
 export default function NewsItem({ news }) {
-  // console.log(news)
   return (
-    <div className={styles.news}>
+    <div className={styles.news2}>
       {news.attributes.cover.data != null && (
-        <div className={styles.img}>
+        <div className={styles.img2}>
         <Image
         loader={myLoader}
         width={230} height={180}
@@ -31,7 +30,7 @@ export default function NewsItem({ news }) {
         alt={news.attributes.title}
         />
         </div> */}
-      <div className={styles.info}>
+      <div className={styles.info2}>
         <h3 className='font-bold text-lg font-mono'>
           {news.attributes.title}
         </h3>
@@ -40,7 +39,7 @@ export default function NewsItem({ news }) {
         <h6>Views:{news.attributes.views}</h6>
         <h6>Date: {new Date(news.attributes.createdAt).toLocaleString()}</h6>
       </div>
-      <div className={styles.link}>
+      <div className={styles.link2}>
         <Link href={`the-loai/news/${news.attributes.slug}`}>
           <div className="btn">Read More</div>
         </Link>
