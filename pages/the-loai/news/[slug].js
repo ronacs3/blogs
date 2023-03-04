@@ -54,6 +54,7 @@ export async function getServerSideProps(context) {
       props: {
           news: data.data
       },
+      revalidate: 60,
   }
 }
 // export async function getSideProps(context) {
