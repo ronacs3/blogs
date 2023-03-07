@@ -22,7 +22,7 @@ export default function search(){
       <InstantSearch
        indexName= "post"
        searchClient={searchClient}>
-        <div className={Search}>
+        <div>
           <SearchBox
             translations={{
               placeholder: 'Search…',
