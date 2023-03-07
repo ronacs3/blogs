@@ -22,8 +22,12 @@ export default function search(){
       <InstantSearch
        indexName= "post"
        searchClient={searchClient}>
-        <div>
-          <SearchBox/>
+        <div className={Search}>
+          <SearchBox
+            translations={{
+              placeholder: 'Search…',
+            }}
+          />
 
           <Hits hitComponent={Hit}/>
           <Configure hitsPerPage={5}/>
@@ -38,15 +42,18 @@ function Hit(props){
   console.log(props)
   return(
       <div className={styles.news}>
+        {props.hit.cover != null && (
         <div className={styles.img}>
-          {/* <Image
-          loader={myLoader}
-          width={230} height={180}
-          src={props.hit.cover.url}
-          alt={props.hit.title}
-        /> */}
-        {/* {props.hit.cover.url} */}
+        <Image
+        loader={myLoader}
+        width={230} height={180}
+        src={props.hit.cover.url}
+        alt={props.hit.title}
+        />
         </div>
+      )}
+        {/* {props.hit.cover.url} */}
+      
       <div className={styles.info}>
         <h3 className='font-bold text-lg font-mono'>
           {props.hit.title}
