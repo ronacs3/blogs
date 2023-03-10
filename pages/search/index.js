@@ -1,12 +1,13 @@
 import Layout from "@/components/Layout";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
-import { InstantSearch, SearchBox, Hits, Highlight, Configure } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits, Configure } from "react-instantsearch-dom";
 import styles from "@/styles/Layout.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 const searchClient = instantMeiliSearch(
   "https://search.v2.wuys.me/",
-  "f7ae180757df61429028a274c637b1ff5fed62a81f53b5e5b54d49d44213c89a"
+  "masterKey"
 );
 const myLoader = ({ src }) => {
   // if (src == null) { return " "}
@@ -14,32 +15,41 @@ const myLoader = ({ src }) => {
     return `https://v2.wuys.me${src}`
   // }
 }
-
 export default function search(){
+  // const [hasResults, setHasResults] = useState(true);
+
+  // const handleSearchStateChange = (searchState) => {
+  //   const query = searchState?.query?.[0]?.trim() || '';
+  //   setHasResults(query === '' || searchState?.results?.hits?.length === 0);
+  // };
   return(
     <Layout>
       <div className={styles.container}>
-      <InstantSearch
-       indexName= "post"
-       searchClient={searchClient}>
-        <div>
-          <SearchBox
+        <InstantSearch
+         indexName="post" 
+         searchClient={searchClient}
+        //  onSearchStateChange={handleSearchStateChange}
+         >
+          <div className={styles.search}>
+            <SearchBox
             translations={{
-              placeholder: 'Search…',
+              placeholder: 'Search news…',
             }}
-          />
+             />
+          </div>
+      
+            <Hits hitComponent={Hit} />
+             
+        
+            <Configure hitsPerPage={4}/>
+        </InstantSearch>
 
-          <Hits hitComponent={Hit}/>
-          <Configure hitsPerPage={5}/>
-        </div>
-      </InstantSearch>
     </div>
     </Layout>
   );
 }
 
 function Hit(props){
-  console.log(props)
   return(
       <div className={styles.news}>
         {props.hit.cover != null && (
@@ -64,7 +74,7 @@ function Hit(props){
         <h6>Date: {new Date(props.hit.createdAt).toLocaleString()}</h6>
       </div>
       <div className={styles.link}>
-        <Link href={`the-loai/news/${props.hit.slug}`}>
+        <Link href={`/${props.hit.slug}`}>
           <div className="btn">Read More</div>
         </Link>
       </div>

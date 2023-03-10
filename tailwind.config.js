@@ -35,6 +35,8 @@ module.exports = {
         'display': ['Oswald'],
         'body': ['"Open Sans"'],
       },
-  plugins: [],
+  plugins: [
+      require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
   }
 }

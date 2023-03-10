@@ -20,7 +20,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import IconButton from '@mui/material/IconButton';
 import RecommendIcon from '@mui/icons-material/Recommend';
 import CloudIcon from '@mui/icons-material/Cloud';
-export default function Homepages ({news}) {
+export default function Homepages ({news,weather}) {
   const [pageIndex, setPageIndex] = useState(1);
   const { data } = useSWR(
     `https://v2.wuys.me/api/posts?pagination[page]=${pageIndex}&pagination[pageSize]=3&populate=*&sort=createdAt%3Adesc`,
@@ -29,6 +29,7 @@ export default function Homepages ({news}) {
       fallbackData: news,
     }
   );
+  // console.log(weather)
   return (
     <div>
       <Layout>
@@ -140,13 +141,17 @@ export default function Homepages ({news}) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   const newsResponse = await fetcher(
     `https://v2.wuys.me/api/posts?pagination[page]=1&pagination[pageSize]=3&populate=*&sort=createdAt%3Adesc`
   );
+  const newsWeather = await fetcher(
+    `https://api.openweathermap.org/data/2.5/weather?q=london&lang=vi&units=metric&appid=062d92a2646152d39eb7845a608226cb`
+  )
   return {
     props: {
       news: newsResponse,
+      weather:newsWeather,
     },
   };
 }

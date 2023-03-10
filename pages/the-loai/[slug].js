@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "@/components/Layout";
-import { API_URL } from "@/config/index";
 import Newcate from "@/components/Newcate";
 import styles from "@/styles/Layout.module.css";
 export default function Homepages ({news}) {

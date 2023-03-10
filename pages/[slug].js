@@ -1,12 +1,11 @@
-import Layout from "../../../components/Layout";
+import Layout from "../components/Layout";
 import Link from "next/link";
 import styles from "@/styles/News.module.css";
 import MarkdownIt from 'markdown-it';
 import * as React from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-
-
+import { DiscussionEmbed } from "disqus-react";
 
 const News = ({news}) => {
   console.log(news)
@@ -24,19 +23,23 @@ let renderContent = md.render(news.attributes.content);
         <h1><VisibilityIcon/> {news.attributes.views}</h1>
         <h1><AccessTimeIcon/> {new Date(news.attributes.createdAt).toLocaleString()}</h1>
         <div dangerouslySetInnerHTML={{ __html: renderContent }} />
-        {/* <Image
-        loader={myLoader}
-        width={1000} height={700}
-        size={22.03}
-        src={news.data.attributes.cover.data.attributes.url}
-        alt={news.data.attributes.title}
-        /> */}
-        {/* <h4>{news.data.attributes.content}</h4> */}
-      
-        {/* <span>{news.attributes.categories}</span> */}
-        <Link href="/the-loai">
+        <Link href="/hotnews">
           <a className={styles.back}>Go Back</a>
         </Link>
+
+        <div className="comment">
+        <DiscussionEmbed
+          shortname='quangdemo'
+          config={
+        {
+            // url: `http://localhost:3000/${news.attributes.slug}`,
+            identifier: news.attributes.slug,
+            title: news.attributes.title,
+            language: 'vi_VN' //e.g. for Traditional Chinese (Taiwan)	
+        }
+    }
+/>
+        </div>
       </div>
       </div>
     </Layout>
