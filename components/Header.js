@@ -184,7 +184,6 @@ export default function MiniDrawer() {
           ))}
         </List>
         <Divider />
-        <Box sx={{ flexGrow: 1 }} />
         <List>
           {['About'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>

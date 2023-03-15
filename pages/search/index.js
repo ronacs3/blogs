@@ -1,13 +1,14 @@
 import Layout from "@/components/Layout";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
-import { InstantSearch, SearchBox, Hits, Configure } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits, Configure, Pagination } from "react-instantsearch-dom";
 import styles from "@/styles/Layout.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import 'instantsearch.css/themes/satellite.css';
 import { useState } from "react";
 const searchClient = instantMeiliSearch(
   "https://search.v2.wuys.me/",
-  "masterKey"
+  "23990cec61f86f8a77681f7ab4206ff5617198338bffabcd8589ff139f0f80e8"
 );
 const myLoader = ({ src }) => {
   // if (src == null) { return " "}
@@ -22,6 +23,7 @@ export default function search(){
   //   const query = searchState?.query?.[0]?.trim() || '';
   //   setHasResults(query === '' || searchState?.results?.hits?.length === 0);
   // };
+  
   return(
     <Layout>
       <div className={styles.container}>
@@ -39,17 +41,17 @@ export default function search(){
           </div>
       
             <Hits hitComponent={Hit} />
-             
-        
             <Configure hitsPerPage={4}/>
+            <Pagination
+            /> 
         </InstantSearch>
-
     </div>
     </Layout>
   );
 }
 
 function Hit(props){
+  console.log(props)
   return(
       <div className={styles.news}>
         {props.hit.cover != null && (

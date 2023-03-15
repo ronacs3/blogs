@@ -29,7 +29,7 @@ export default function Homepages ({news,weather}) {
       fallbackData: news,
     }
   );
-  // console.log(weather)
+  console.log(data)
   return (
     <div>
       <Layout>
