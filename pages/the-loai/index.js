@@ -5,11 +5,12 @@ import Layout from "@/components/Layout";
 import styles from "@/styles/Layout.module.css";
 import NewsItem from "@/components/NewsItem";
 import Categories from "@/components/Categories";
-
+import { useFetchUser } from "lib/authContext";
 export default function Homepages ({views}) {
+  const { user, loading } = useFetchUser();
   return (
 
-      <Layout>
+      <Layout user={user}>
       <div className={styles.container}>
         <div className='font-bold text-xl font-mono'>Thể Loại</div>
         {views.length === 0 && <h3>No News</h3>}

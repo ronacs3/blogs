@@ -6,6 +6,7 @@ import { paginate } from "@/components/paginate";
 import useSWR from 'swr';
 import styles from "@/styles/Layout.module.css";
 import { fetcher } from "lib/api";
+import { useFetchUser } from "lib/authContext";
 export default function Homepages ({news}) {
   const [pageIndex, setPageIndex] = useState(1);
   const { data } = useSWR(
@@ -20,8 +21,9 @@ export default function Homepages ({news}) {
     
     // const paginatedPosts = paginate(ninja, currentPage, pageSize);
 // console.log(data)
+  const { user, loading } = useFetchUser();
   return (
-      <Layout>
+      <Layout user={user}>
       <div className={styles.container}>
         <h1 className='font-bold text-xl font-mono'>Hot News</h1>
         {/* {ninja.length === 0 && <h3>No News</h3>} */}

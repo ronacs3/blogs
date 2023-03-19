@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import 'instantsearch.css/themes/satellite.css';
 import { useState } from "react";
+import { useFetchUser } from "lib/authContext";
 const searchClient = instantMeiliSearch(
   "https://search.v2.wuys.me/",
   "23990cec61f86f8a77681f7ab4206ff5617198338bffabcd8589ff139f0f80e8"
@@ -23,9 +24,9 @@ export default function search(){
   //   const query = searchState?.query?.[0]?.trim() || '';
   //   setHasResults(query === '' || searchState?.results?.hits?.length === 0);
   // };
-  
+  const { user, loading } = useFetchUser();
   return(
-    <Layout>
+    <Layout user={user}>
       <div className={styles.container}>
         <InstantSearch
          indexName="post" 

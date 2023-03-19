@@ -20,6 +20,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import IconButton from '@mui/material/IconButton';
 import RecommendIcon from '@mui/icons-material/Recommend';
 import CloudIcon from '@mui/icons-material/Cloud';
+import { useFetchUser } from "lib/authContext";
 export default function Homepages ({news,weather}) {
   const [pageIndex, setPageIndex] = useState(1);
   const { data } = useSWR(
@@ -30,9 +31,10 @@ export default function Homepages ({news,weather}) {
     }
   );
   console.log(data)
+  const { user, loading } = useFetchUser();
   return (
     <div>
-      <Layout>
+      <Layout user={user}>
       <Box sx={{ flexGrow: 4 }}>
         <Grid container spacing={2}>
           <Grid item xs={6}md={8}>

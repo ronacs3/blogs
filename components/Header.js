@@ -23,6 +23,9 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import InfoIcon from '@mui/icons-material/Info';
 import CloudIcon from '@mui/icons-material/Cloud';
 import CategoryIcon from '@mui/icons-material/Category';
+import { useUser } from 'lib/authContext';
+import { Button } from '@mui/material';
+import { unsetToken } from 'lib/auth';
 const drawerWidth = 170;
 
 const openedMixin = (theme) => ({
@@ -101,7 +104,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   { id: 2, label: "Thể Loại", icon: <CategoryIcon/>, link: "/the-loai" },
   { id: 3, label: "Weather", icon: <CloudIcon/>, link: "/about" },
  ];
-export default function MiniDrawer() {
+export default function headers() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -112,7 +115,10 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const { user, loading } = useUser();
+  const logout = () => {
+    unsetToken();
+  };
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -139,7 +145,7 @@ export default function MiniDrawer() {
           >
             W News
           </Link>
-          <Box sx={{ flexGrow: 1 }} />
+          {/* <Box sx={{ flexGrow: 1 }} /> */}
           <MenuItem>
             <IconButton
              size="large"
@@ -148,6 +154,54 @@ export default function MiniDrawer() {
               <SearchIcon/>
             </IconButton>
           </MenuItem>
+          <Box sx={{ flexGrow: 1 }} />
+          {!loading &&
+            (user ? (
+
+                <Link href="/profile">
+                  <a className="md:p-2 py-2 block hover:text-purple-400">
+                    Profile
+                  </a>
+                </Link>
+
+            ) : (
+              ''
+            ))}
+          {!loading &&
+            (user ? (
+              <a
+              className="md:p-2 py-2 block hover:text-purple-400"
+              onClick={logout}
+              style={{ cursor: 'pointer' }}
+            >
+              Logout
+            </a>
+              
+            ) : (
+              ''
+            ))}
+          {!loading && !user ? (
+             
+             <>
+            
+              <Link href="/sign-in">
+                  <a className="md:p-2 block py-2 hover:text-purple-400 text-black">
+                    Login
+                  </a>
+                </Link>    
+            
+
+                <Link href="/register">
+                  <a className="md:p-2 block py-2 hover:text-purple-400 text-black">
+                    Register
+                  </a>
+                </Link>
+
+            </>
+           
+          ) : (
+            ''
+          )}
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -184,6 +238,7 @@ export default function MiniDrawer() {
           ))}
         </List>
         <Divider />
+        <Box sx={{ flexGrow: 1 }} />
         <List>
           {['About'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -215,3 +270,4 @@ export default function MiniDrawer() {
     </Box>
   );
 }
+

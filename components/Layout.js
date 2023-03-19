@@ -2,13 +2,11 @@ import Head from "next/head";
 import styles from "@/styles/Layout.module.css";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useRouter } from "next/router";
-import Hero from "./Hero";
+import { UserProvider } from "lib/authContext";
 
-export default function Layout({ title, keyowrds, description, children, }) {
-  const router = useRouter();
+export default function Layout({ title, keyowrds, description, children, user, loading = false, }) {
   return (
-    <div>
+      <UserProvider value={{ user, loading }}>
       <Head>
         <title>{title}</title>
         <meta name="descriptions" content={description} />
@@ -18,7 +16,8 @@ export default function Layout({ title, keyowrds, description, children, }) {
       {/* {router.pathname === "/" && <Hero />} */}
       <div>{children}</div>
       <Footer />
-    </div>
+      </UserProvider>
+
   );
 }
 

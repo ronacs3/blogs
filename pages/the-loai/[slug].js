@@ -4,10 +4,11 @@ import Link from "next/link";
 import Layout from "@/components/Layout";
 import Newcate from "@/components/Newcate";
 import styles from "@/styles/Layout.module.css";
+import { useFetchUser } from "lib/authContext";
 export default function Homepages ({news}) {
-
+  const { user, loading } = useFetchUser();
   return (
-      <Layout>
+      <Layout user={user} >
         <div className={styles.container}>
         <h1 className='font-bold text-xl font-mono'>{news.attributes.title}</h1>
         {news.attributes.posts.data.length === 0 && <h3>No News</h3>}

@@ -6,7 +6,7 @@ import * as React from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { DiscussionEmbed } from "disqus-react";
-
+import { useFetchUser } from "lib/authContext";
 const News = ({news}) => {
   console.log(news)
   let md = new MarkdownIt();
@@ -15,8 +15,9 @@ let renderContent = md.render(news.attributes.content);
   // const {id} = router.query
   // console.log(id)
   console.log(news)
+  const { user, loading } = useFetchUser();
   return(
-    <Layout>
+    <Layout user={user}>
       <div className={styles.container}>
       <div className={styles.news}>
         <h1 className="text-xl">{news.attributes.title}</h1>
