@@ -26,6 +26,9 @@ import CategoryIcon from '@mui/icons-material/Category';
 import { useUser } from 'lib/authContext';
 import { Button } from '@mui/material';
 import { unsetToken } from 'lib/auth';
+import { useState } from 'react';
+import { AccountCircle } from '@mui/icons-material';
+import Menu from '@mui/material/Menu';
 const drawerWidth = 170;
 
 const openedMixin = (theme) => ({
@@ -119,6 +122,13 @@ export default function headers() {
   const logout = () => {
     unsetToken();
   };
+  const [anchorEl, setAnchorEl] = useState(null);
+ const handleMenu = (event) => {
+  setAnchorEl(event.currentTarget);
+};
+const handleClose = () => {
+  setAnchorEl(null);
+};
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -145,7 +155,7 @@ export default function headers() {
           >
             W News
           </Link>
-          {/* <Box sx={{ flexGrow: 1 }} /> */}
+          <Box sx={{ flexGrow: 1 }} />
           <MenuItem>
             <IconButton
              size="large"
@@ -154,29 +164,40 @@ export default function headers() {
               <SearchIcon/>
             </IconButton>
           </MenuItem>
-          <Box sx={{ flexGrow: 1 }} />
           {!loading &&
             (user ? (
+              <div>
+                <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem>Hello! {user}</MenuItem>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </Menu>
+              </div>
 
-                <Link href="/profile">
-                  <a className="md:p-2 py-2 block hover:text-purple-400">
-                    Profile
-                  </a>
-                </Link>
-
-            ) : (
-              ''
-            ))}
-          {!loading &&
-            (user ? (
-              <a
-              className="md:p-2 py-2 block hover:text-purple-400"
-              onClick={logout}
-              style={{ cursor: 'pointer' }}
-            >
-              Logout
-            </a>
-              
             ) : (
               ''
             ))}
@@ -191,7 +212,7 @@ export default function headers() {
                 </Link>    
             
 
-                <Link href="/register">
+                <Link href="/sign-up">
                   <a className="md:p-2 block py-2 hover:text-purple-400 text-black">
                     Register
                   </a>

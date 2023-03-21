@@ -30,7 +30,6 @@ export default function Homepages ({news,weather}) {
       fallbackData: news,
     }
   );
-  console.log(data)
   const { user, loading } = useFetchUser();
   return (
     <div>
